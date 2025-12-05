@@ -42,10 +42,10 @@ export default function Navbar() {
           <LiaBellSolid className={styles.bell} />
 
           <Image
-            src="/user.png"
+            src="/avatar.png"
             alt="user"
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             className={styles.userPic}
           />
 
