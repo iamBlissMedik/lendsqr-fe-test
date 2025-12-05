@@ -19,9 +19,7 @@ export default function DashboardLayoutClient({
       <div className={styles.body}>
         <Sidebar />
 
-        <main className={styles.content}>
-          <div className={styles.inner}>{children}</div>
-        </main>
+        <main className={styles.content}>{children}</main>
       </div>
     </div>
   );

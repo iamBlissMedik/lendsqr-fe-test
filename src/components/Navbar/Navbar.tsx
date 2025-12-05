@@ -20,9 +20,9 @@ export default function Navbar() {
         <Image
           src="/logo.png"
           alt="logo"
-          width={140}
+          width={150}
           height={30}
-          className={styles.logo}
+          loading="eager"
         />
 
         {/* Search box */}
