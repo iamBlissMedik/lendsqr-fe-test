@@ -2,9 +2,9 @@
 import { Controller, useForm } from "react-hook-form";
 import styles from "./Login.module.scss";
 import Image from "next/image";
-import { InputField } from "../InputField/InputField";
-import { PasswordField } from "../InputField/PasswordField";
-import Button from "../ui/Button/Button";
+import { InputField } from "../../InputField/InputField";
+import { PasswordField } from "../../InputField/PasswordField";
+import Button from "../../ui/Button/Button";
 import { LoginFormValues, loginSchema } from "@/validation/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
