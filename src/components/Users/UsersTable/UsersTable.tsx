@@ -14,6 +14,7 @@ import GroupFilter, {
 import { IoEyeOutline } from "react-icons/io5";
 import { FiUserX } from "react-icons/fi";
 import { GrUserExpert } from "react-icons/gr";
+import { InputField } from "@/components/InputField/InputField";
 
 export default function UsersTable() {
   const router = useRouter();
@@ -198,14 +199,12 @@ export default function UsersTable() {
       filterable: true,
       filterContent: (
         <div className={styles.filterForm}>
-          <label>Username</label>
-          <input
+          <InputField
+            label="Username"
             type="text"
             placeholder="User"
             value={filters.username}
-            onChange={(e) =>
-              setFilters({ ...filters, username: e.target.value })
-            }
+            onChange={(e) => setFilters({ ...filters, username: e })}
           />
         </div>
       ),
@@ -221,12 +220,12 @@ export default function UsersTable() {
       filterable: true,
       filterContent: (
         <div className={styles.filterForm}>
-          <label>Email</label>
-          <input
+          <InputField
+            label="Email"
             type="email"
             placeholder="Email"
             value={filters.email}
-            onChange={(e) => setFilters({ ...filters, email: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, email: e })}
           />
         </div>
       ),
@@ -242,12 +241,11 @@ export default function UsersTable() {
       filterable: true,
       filterContent: (
         <div className={styles.filterForm}>
-          <label>Phone Number</label>
-          <input
-            type="tel"
+          <InputField
+            label="Phone Number"
             placeholder="Phone Number"
             value={filters.phone}
-            onChange={(e) => setFilters({ ...filters, phone: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, phone: e })}
           />
         </div>
       ),
@@ -263,11 +261,11 @@ export default function UsersTable() {
       filterable: true,
       filterContent: (
         <div className={styles.filterForm}>
-          <label>Date</label>
-          <input
+          <InputField
+            label="Date"
             type="date"
             value={filters.date}
-            onChange={(e) => setFilters({ ...filters, date: e.target.value })}
+            onChange={(e) => setFilters({ ...filters, date: e })}
           />
         </div>
       ),
