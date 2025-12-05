@@ -1,23 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import { Work_Sans } from "next/font/google";
 
-const avenirNext = localFont({
-  src: [
-    {
-      path: "../../public/fonts/avenir-next/AvenirNext-Regular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/avenir-next/AvenirNext-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-avenir-next",
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-work-sans",
 });
-
 
 export const metadata: Metadata = {
   title: "Lendsqr assessment test",
@@ -31,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={avenirNext.variable}>{children}</body>
+      <body className={workSans.className}>{children}</body>
     </html>
   );
 }

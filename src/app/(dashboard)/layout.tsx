@@ -1,12 +1,9 @@
+import DashboardLayoutClient from "@/components/layouts/Dashboard/DashboardLayoutClient";
+
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      layout
-      {children}
-    </div>
-  );
+  return <DashboardLayoutClient>{children}</DashboardLayoutClient>;
 }

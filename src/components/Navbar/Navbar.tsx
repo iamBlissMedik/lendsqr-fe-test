@@ -1,7 +1,59 @@
 "use client";
 
-const Navbar = () => {
-  return <div>Navbar</div>;
-};
+import { FaBars, FaCaretDown } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
+import { LiaBellSolid } from "react-icons/lia";
+import Image from "next/image";
+import styles from "./Navbar.module.scss";
+import Link from "next/link";
 
-export default Navbar;
+export default function Navbar() {
+  return (
+    <header className={styles.header}>
+      <nav className={styles.navbar}>
+        {/* Mobile toggle */}
+        <i className={styles.mobileToggle}>
+          <FaBars />
+        </i>
+
+        {/* Logo */}
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={140}
+          height={30}
+          className={styles.logo}
+        />
+
+        {/* Search box */}
+        <div className={styles.searchBox}>
+          <input type="text" placeholder="Search for anything" />
+          <div className={styles.searchIcon}>
+            <IoSearch />
+          </div>
+        </div>
+
+        {/* Right section */}
+        <div className={styles.rightNav}>
+          <Link href={"/users"} className={styles.docsLink}>
+            Docs
+          </Link>
+
+          <LiaBellSolid className={styles.bell} />
+
+          <Image
+            src="/user.png"
+            alt="user"
+            width={40}
+            height={40}
+            className={styles.userPic}
+          />
+
+          <p className={styles.username}>
+            Adedeji <FaCaretDown />
+          </p>
+        </div>
+      </nav>
+    </header>
+  );
+}
