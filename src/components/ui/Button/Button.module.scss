@@ -1,0 +1,47 @@
+@import "../../../styles/abstracts/variables";
+
+
+.button {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 15px 24px;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  background-color: $primary;
+  color: #fff;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Filled variant (default) */
+.filled {
+  background-color: $primary;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary, 5%);
+  }
+}
+
+/* Outlined variant */
+.outlined {
+  background-color: transparent;
+  border: 2px solid currentColor; // fallback if no borderColor passed
+  color: inherit;
+
+  &:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+}
+
+/* Full width option */
+.fullWidth {
+  width: 100%;
+}

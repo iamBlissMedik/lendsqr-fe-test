@@ -1,0 +1,60 @@
+@import "../../styles/abstracts/variables";
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  input {
+    height: 50px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 2px solid rgba(84, 95, 125, 0.15);
+    font-size: 16px;
+    outline: none;
+
+    &:focus {
+      border-color: $primary;
+    }
+    &::placeholder {
+      opacity: 0.6;
+      font-size: 14px;
+    }
+  }
+
+  .input-error {
+    border-color: red;
+  }
+
+  .error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+
+  .password-wrapper {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding-right: 60px;
+    }
+
+    .toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: $primary;
+      text-transform: uppercase;
+      letter-spacing: 10%;
+    }
+  }
+}
