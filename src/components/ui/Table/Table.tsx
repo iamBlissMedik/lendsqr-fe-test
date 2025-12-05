@@ -2,14 +2,18 @@
 
 import styles from "./Table.module.scss";
 import Pagination from "../Pagination/Pagination";
-import { IoFilter } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ColumnFilter from "./ColumnFilter/ColumnFilter";
+import { ReactNode } from "react";
 
 export interface Column {
   header?: string;
   accessor?: string;
   render?: (row: any) => React.ReactNode;
   filterable?: boolean;
+  filterContent?: React.ReactNode;
+  onFilterApply?: () => void;
+  onFilterReset?: () => void;
 }
 
 interface TableProps {
@@ -21,6 +25,8 @@ interface TableProps {
   pageSize: number;
   setPageIndex: (index: number) => void;
   setPageSize: (size: number) => void;
+  groupFilter?: ReactNode; // Optional group filter component
+  showIndividualFilters?: boolean; // Show individual column filters (default: true)
 }
 
 export default function Table({
@@ -32,9 +38,15 @@ export default function Table({
   pageSize,
   setPageIndex,
   setPageSize,
+  groupFilter,
+  showIndividualFilters = true,
 }: TableProps) {
   return (
     <div className={styles.tableWrapper}>
+      {groupFilter && (
+        <div className={styles.groupFilterWrapper}>{groupFilter}</div>
+      )}
+
       <div className={styles.tableCard}>
         <div className={styles.tableContainer}>
           <table className={styles.table}>
@@ -45,8 +57,15 @@ export default function Table({
                     {col.header && (
                       <div className={styles.headerWithIcon}>
                         <span>{col.header}</span>
-                        {col.filterable && (
-                          <IoFilter className={styles.filterIcon} />
+                        {showIndividualFilters && col.filterable && (
+                          <ColumnFilter
+                            onApply={col.onFilterApply}
+                            onReset={col.onFilterReset}
+                          >
+                            {col.filterContent || (
+                              <div>No filter configured</div>
+                            )}
+                          </ColumnFilter>
                         )}
                       </div>
                     )}

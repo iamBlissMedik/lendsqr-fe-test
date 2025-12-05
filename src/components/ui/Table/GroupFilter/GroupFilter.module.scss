@@ -1,0 +1,152 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  color: inherit;
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.active {
+    opacity: 1;
+    color: #39cdcc;
+  }
+
+  svg {
+    font-size: 16px;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  border-radius: 4px;
+  min-width: 270px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(84, 95, 125, 0.14);
+  z-index: 100;
+  animation: slideDown 0.15s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  padding: 30px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.grid {
+  display: grid;
+   grid-template-columns: 1fr;
+  gap: 20px;
+
+
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #545f7d;
+}
+
+.input {
+  padding: 10px 14px;
+  border: 1px solid #213f7d26;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #545f7d;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #39cdcc;
+  }
+
+  &::placeholder {
+    color: #545f7d80;
+  }
+}
+
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23545F7D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  padding: 15px 30px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.resetBtn,
+.filterBtn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.resetBtn {
+  background: transparent;
+  color: #545f7d;
+  border: 1px solid #545f7d;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+.filterBtn {
+  background: #39cdcc;
+  color: #fff;
+
+  &:hover {
+    background: #2bb8b6;
+  }
+}
