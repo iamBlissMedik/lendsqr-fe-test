@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import styles from "./DashboardLayout.module.scss";
+import { SidebarProvider } from "@/contexts/SidebarContext";
 
 export default function DashboardLayoutClient({
   children,
@@ -11,16 +12,18 @@ export default function DashboardLayoutClient({
   children: ReactNode;
 }) {
   return (
-    <div className={styles.layout}>
-      {/* Top Navbar */}
-      <Navbar />
+    <SidebarProvider>
+      <div className={styles.layout}>
+        {/* Top Navbar */}
+        <Navbar />
 
-      {/* Sidebar + Page Content */}
-      <div className={styles.body}>
-        <Sidebar />
+        {/* Sidebar + Page Content */}
+        <div className={styles.body}>
+          <Sidebar />
 
-        <main className={styles.content}>{children}</main>
+          <main className={styles.content}>{children}</main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }

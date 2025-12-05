@@ -6,15 +6,21 @@ import { LiaBellSolid } from "react-icons/lia";
 import Image from "next/image";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
+import { useSidebar } from "@/contexts/SidebarContext";
 
 export default function Navbar() {
+  const { toggleSidebar } = useSidebar();
   return (
     <header className={styles.header}>
       <nav className={styles.navbar}>
         {/* Mobile toggle */}
-        <i className={styles.mobileToggle}>
+        <button
+          className={styles.mobileToggle}
+          onClick={toggleSidebar}
+          aria-label="Toggle sidebar"
+        >
           <FaBars />
-        </i>
+        </button>
 
         {/* Logo */}
         <Image
