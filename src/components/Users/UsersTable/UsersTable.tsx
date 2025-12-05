@@ -41,7 +41,7 @@ export default function UsersTable() {
     {
       label: "View Details",
       icon: <IoEyeOutline />,
-      onClick: () => router.push(`/details/${row.id}`),
+      onClick: () => router.push(`/users/${row.id}`),
     },
     {
       label: "Blacklist User",
