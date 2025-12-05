@@ -12,9 +12,17 @@
   padding: 30px;
 }
 
+.actionsCell {
+  // ✅ Make sure this cell can contain the positioned dropdown
+  position: relative;
+  // ✅ Prevent text overflow from interfering
+  overflow: visible !important;
+}
+
 .tableContainer {
-  max-height: 640px; // scrollable height
+  max-height: 640px;
   overflow-y: auto;
+  overflow-x: auto;
 }
 
 .table {
@@ -24,8 +32,8 @@
   thead {
     position: sticky;
     top: 0;
-    background-color: #fff; // must have a background
-    z-index: 2; // above the tbody
+    background-color: #fff;
+    z-index: 2;
 
     th {
       padding: 20px 15px;
@@ -33,6 +41,11 @@
       font-weight: 600;
       font-size: 12px;
       text-transform: uppercase;
+
+      // ✅ Last column (actions) should also handle overflow
+      &:last-child {
+        overflow: visible;
+      }
     }
   }
 
@@ -45,6 +58,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        // ✅ Last column (actions) needs visible overflow
+        &:last-child {
+          overflow: visible;
+        }
       }
     }
   }
@@ -91,14 +109,13 @@
   background-color: rgba(228, 3, 59, 0.06);
 }
 
-
 .loading {
   text-align: center;
   padding: 40px 0;
 
   .spinner {
     font-size: 30px;
-    color: #39cdcc; // primary color
+    color: #39cdcc;
     animation: spin 1s linear infinite;
     margin: 0 auto;
   }
@@ -108,5 +125,3 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-

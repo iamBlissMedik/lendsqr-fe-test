@@ -65,7 +65,10 @@ export default function Table({
                 data.map((row, i) => (
                   <tr key={i}>
                     {columns.map((col, j) => (
-                      <td key={j}>
+                      <td
+                        key={j}
+                        className={col.render ? styles.actionsCell : undefined}
+                      >
                         {col.render ? col.render(row) : row[col.accessor || ""]}
                       </td>
                     ))}
