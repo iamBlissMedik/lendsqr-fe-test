@@ -1,0 +1,112 @@
+.tableWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tableCard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  overflow: hidden;
+  padding: 30px;
+}
+
+.tableContainer {
+  max-height: 640px; // scrollable height
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff; // must have a background
+    z-index: 2; // above the tbody
+
+    th {
+      padding: 20px 15px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        font-size: 14px;
+        padding: 20px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.headerWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterIcon {
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.status.active {
+  color: #39CD62;
+  background-color: rgba(57, 205, 98, 0.06);
+}
+
+.status.inactive {
+  color: #545F7D;
+  background-color: rgba(84, 95, 125, 0.06);
+}
+
+.status.pending {
+  color: #E9B200;
+  background-color: rgba(233, 178, 0, 0.06);
+}
+
+.status.blacklisted {
+  color: #E4033B;
+  background-color: rgba(228, 3, 59, 0.06);
+}
+
+
+.loading {
+  text-align: center;
+  padding: 40px 0;
+
+  .spinner {
+    font-size: 30px;
+    color: #39cdcc; // primary color
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
