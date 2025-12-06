@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "./users.api";
 import { formatUserDate } from "@/utils/date";
+import { IUser } from "@/types/users.types";
+import { getUser } from "@/lib/indexedDB";
 
 export const useGetUsers = () => {
   const {
@@ -36,4 +38,12 @@ export const useGetUsers = () => {
     error: errorMessage,
     refetch,
   };
+};
+
+export const useGetUserById = (id: string) => {
+  return useQuery<IUser | undefined>({
+    queryKey: ["user", id],
+    queryFn: () => getUser(id),
+    enabled: !!id, // only fetch if id exists
+  });
 };

@@ -16,6 +16,7 @@ import { GrUserExpert } from "react-icons/gr";
 import { InputField } from "@/components/InputField/InputField";
 import { useGetUsers } from "@/services/users/users.hooks";
 import { IUser } from "@/types/users.types";
+import { saveUser } from "@/lib/indexedDB";
 
 export default function UsersTable() {
   const router = useRouter();
@@ -54,11 +55,15 @@ export default function UsersTable() {
     }));
   };
 
-  const getUserActions = (row: any): RowAction[] => [
+  const getUserActions = (row: IUser): RowAction[] => [
     {
       label: "View Details",
       icon: <IoEyeOutline />,
-      onClick: () => router.push(`/users/${row.id}`),
+      onClick: async () => {
+        // Save the selected user to IndexedDB
+        await saveUser(row);
+        router.push(`/users/${row.id}`);
+      },
     },
     {
       label: "Blacklist User",

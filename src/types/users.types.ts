@@ -33,7 +33,7 @@ export interface IGuarantor {
 }
 
 export interface IUser {
-  id: string | number;
+  id: string;
   organization: string;
   username: string;
   email: string;
@@ -42,6 +42,7 @@ export interface IUser {
   status: "Active" | "Inactive" | "Pending" | "Blacklisted";
 
   // Detailed fields
+  tier: number;
   accountNumber: string;
   accountBalance: string;
   bankName: string;

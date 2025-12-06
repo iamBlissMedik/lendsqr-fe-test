@@ -1,56 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaStar, FaRegStar } from "react-icons/fa";
+import { useParams, useRouter } from "next/navigation";
+import { FaStar, FaRegStar } from "react-icons/fa";
 import styles from "./UserDetails.module.scss";
 import Button from "@/components/ui/Button/Button";
 import Image from "next/image";
-
-// Static mock data for testing UI
-const mockUser = {
-  id: "user_123",
-  username: "Adedeji Adebayo",
-  accountNumber: "9876543210",
-  accountBalance: "₦2,000,000.00",
-  bankName: "GTBank",
-  status: "Active",
-  personalInfo: {
-    fullName: "Adedeji Adebayo",
-    phoneNumber: "08078903721",
-    emailAddress: "adedeji@lendsqr.com",
-    bvn: "07060780922",
-    gender: "Male",
-    maritalStatus: "Single",
-    children: "None",
-    typeOfResidence: "Parent's Apartment",
-  },
-  educationEmployment: {
-    levelOfEducation: "B.Sc",
-    employmentStatus: "Employed",
-    sectorOfEmployment: "FinTech",
-    durationOfEmployment: "2 years",
-    officeEmail: "adedeji@lendsqr.com",
-    monthlyIncome: "₦200,000 - ₦400,000",
-    loanRepayment: "₦40,000",
-  },
-  socials: {
-    twitter: "@adedeji_adebayo",
-    facebook: "Adedeji Adebayo",
-    instagram: "@adedeji_adebayo",
-  },
-  guarantor: {
-    fullName: "Debby Ogana",
-    phoneNumber: "08160780928",
-    emailAddress: "debby@gmail.com",
-    relationship: "Sister",
-  },
-};
+import Spinner from "@/components/ui/Spinner/Spinner";
+import { useGetUserById } from "@/services/users/users.hooks";
 
 export default function UserDetails() {
   const router = useRouter();
+  const params = useParams();
+  const userId = params.id as string;
+
+  const { data: user, isLoading, isError } = useGetUserById(userId);
   const [activeTab, setActiveTab] = useState("general");
-  const [userTier, setUserTier] = useState(3);
+
+  if (isLoading) return <Spinner size={40} />;
+  if (isError || !user) return <p>User not found</p>;
 
   return (
     <div>
@@ -79,19 +47,24 @@ export default function UserDetails() {
           <div className={styles.summaryTopDetails}>
             <div className={styles.userBasic}>
               <div className={styles.avatar}>
-                <img src="/images/avatar.svg" alt={mockUser.username} />
+                <Image
+                  src={user.profileImage || "/images/avatar.svg"}
+                  alt={user.username}
+                  width={40}
+                  height={40}
+                />
               </div>
               <div className={styles.userInfo}>
-                <h2>{mockUser.username}</h2>
-                <p className={styles.accountNumber}>{mockUser.accountNumber}</p>
+                <h2>{user.username}</h2>
+                <p className={styles.accountNumber}>{user.accountNumber}</p>
               </div>
             </div>
 
             <div className={styles.userTier}>
               <p>User's Tier</p>
               <div className={styles.stars}>
-                {[1, 2, 3].map((star) =>
-                  star <= userTier ? (
+                {[1, 2, 3, 4, 5].map((star) =>
+                  star <= user.tier ? (
                     <FaStar key={star} className={styles.filled} />
                   ) : (
                     <FaRegStar key={star} />
@@ -102,51 +75,26 @@ export default function UserDetails() {
           </div>
 
           <div className={styles.userBalance}>
-            <h3>{mockUser.accountBalance}</h3>
+            <h3>{user.accountBalance}</h3>
             <p>
-              {mockUser.accountNumber}/{mockUser.bankName}
+              {user.accountNumber}/{user.bankName}
             </p>
           </div>
         </div>
 
         {/* Tabs */}
         <div className={styles.tabs}>
-          <button
-            className={activeTab === "general" ? styles.active : ""}
-            onClick={() => setActiveTab("general")}
-          >
-            General Details
-          </button>
-          <button
-            className={activeTab === "documents" ? styles.active : ""}
-            onClick={() => setActiveTab("documents")}
-          >
-            Documents
-          </button>
-          <button
-            className={activeTab === "bank" ? styles.active : ""}
-            onClick={() => setActiveTab("bank")}
-          >
-            Bank Details
-          </button>
-          <button
-            className={activeTab === "loans" ? styles.active : ""}
-            onClick={() => setActiveTab("loans")}
-          >
-            Loans
-          </button>
-          <button
-            className={activeTab === "savings" ? styles.active : ""}
-            onClick={() => setActiveTab("savings")}
-          >
-            Savings
-          </button>
-          <button
-            className={activeTab === "app" ? styles.active : ""}
-            onClick={() => setActiveTab("app")}
-          >
-            App and System
-          </button>
+          {["general", "documents", "bank", "loans", "savings", "app"].map(
+            (tab) => (
+              <button
+                key={tab}
+                className={activeTab === tab ? styles.active : ""}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1).replace("_", " ")}
+              </button>
+            )
+          )}
         </div>
       </div>
 
@@ -160,35 +108,35 @@ export default function UserDetails() {
               <div className={styles.grid}>
                 <div className={styles.field}>
                   <label>Full Name</label>
-                  <p>{mockUser.personalInfo.fullName}</p>
+                  <p>{user.personalInfo.fullName}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Phone Number</label>
-                  <p>{mockUser.personalInfo.phoneNumber}</p>
+                  <p>{user.personalInfo.phoneNumber}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Email Address</label>
-                  <p>{mockUser.personalInfo.emailAddress}</p>
+                  <p>{user.personalInfo.emailAddress}</p>
                 </div>
                 <div className={styles.field}>
                   <label>BVN</label>
-                  <p>{mockUser.personalInfo.bvn}</p>
+                  <p>{user.personalInfo.bvn}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Gender</label>
-                  <p>{mockUser.personalInfo.gender}</p>
+                  <p>{user.personalInfo.gender}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Marital Status</label>
-                  <p>{mockUser.personalInfo.maritalStatus}</p>
+                  <p>{user.personalInfo.maritalStatus}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Children</label>
-                  <p>{mockUser.personalInfo.children}</p>
+                  <p>{user.personalInfo.children}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Type of Residence</label>
-                  <p>{mockUser.personalInfo.typeOfResidence}</p>
+                  <p>{user.personalInfo.typeOfResidence}</p>
                 </div>
               </div>
             </section>
@@ -199,31 +147,31 @@ export default function UserDetails() {
               <div className={styles["grid-education"]}>
                 <div className={styles.field}>
                   <label>Level of Education</label>
-                  <p>{mockUser.educationEmployment.levelOfEducation}</p>
+                  <p>{user.educationEmployment.levelOfEducation}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Employment Status</label>
-                  <p>{mockUser.educationEmployment.employmentStatus}</p>
+                  <p>{user.educationEmployment.employmentStatus}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Sector of Employment</label>
-                  <p>{mockUser.educationEmployment.sectorOfEmployment}</p>
+                  <p>{user.educationEmployment.sectorOfEmployment}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Duration of Employment</label>
-                  <p>{mockUser.educationEmployment.durationOfEmployment}</p>
+                  <p>{user.educationEmployment.durationOfEmployment}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Office Email</label>
-                  <p>{mockUser.educationEmployment.officeEmail}</p>
+                  <p>{user.educationEmployment.officeEmail}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Monthly Income</label>
-                  <p>{mockUser.educationEmployment.monthlyIncome}</p>
+                  <p>{user.educationEmployment.monthlyIncome}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Loan Repayment</label>
-                  <p>{mockUser.educationEmployment.loanRepayment}</p>
+                  <p>{user.educationEmployment.loanRepayment}</p>
                 </div>
               </div>
             </section>
@@ -231,18 +179,22 @@ export default function UserDetails() {
             {/* Socials */}
             <section className={styles.section}>
               <h3>Socials</h3>
-              <div className={styles.grid}>
+              <div
+                className={styles.grid}
+              >
                 <div className={styles.field}>
                   <label>Twitter</label>
-                  <p>{mockUser.socials.twitter}</p>
+                  <p>{user.socials.twitter}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Facebook</label>
-                  <p>{mockUser.socials.facebook}</p>
+                  <p>{user.socials.facebook}</p>
                 </div>
-                <div className={styles.field}>
+                <div
+                  className={styles.field}
+                >
                   <label>Instagram</label>
-                  <p>{mockUser.socials.instagram}</p>
+                  <p>{user.socials.instagram}</p>
                 </div>
               </div>
             </section>
@@ -253,19 +205,19 @@ export default function UserDetails() {
               <div className={styles.grid}>
                 <div className={styles.field}>
                   <label>Full Name</label>
-                  <p>{mockUser.guarantor.fullName}</p>
+                  <p>{user.guarantor.fullName}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Phone Number</label>
-                  <p>{mockUser.guarantor.phoneNumber}</p>
+                  <p>{user.guarantor.phoneNumber}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Email Address</label>
-                  <p>{mockUser.guarantor.emailAddress}</p>
+                  <p>{user.guarantor.emailAddress}</p>
                 </div>
                 <div className={styles.field}>
                   <label>Relationship</label>
-                  <p>{mockUser.guarantor.relationship}</p>
+                  <p>{user.guarantor.relationship}</p>
                 </div>
               </div>
             </section>
