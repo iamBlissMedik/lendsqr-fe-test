@@ -14,16 +14,18 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FiUserX } from "react-icons/fi";
 import { GrUserExpert } from "react-icons/gr";
 import { InputField } from "@/components/InputField/InputField";
-import { useGetUsers } from "@/services/users/users.hooks";
 import { IUser } from "@/types/users.types";
 import { saveUser } from "@/lib/indexedDB";
 
-export default function UsersTable() {
+export interface UsersTableProps {
+  users: IUser[];
+}
+export default function UsersTable({users}:UsersTableProps) {
   const router = useRouter();
-  const { users, isLoading } = useGetUsers();
 
-  const [data, setData] = useState<any[]>([]);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+
+  const [data, setData] = useState<IUser[]>([]);
+  const [filteredData, setFilteredData] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
@@ -361,7 +363,7 @@ export default function UsersTable() {
     <Table
       columns={columns}
       data={data}
-      loading={loading || isLoading}
+      loading={loading}
       total={total}
       pageIndex={pageIndex}
       pageSize={pageSize}

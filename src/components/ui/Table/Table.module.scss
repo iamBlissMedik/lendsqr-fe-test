@@ -1,8 +1,10 @@
+@import "../../../styles/abstracts/variables";
+
 .tableWrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  position: relative; // ✅ Added for dropdown positioning context
+  position: relative;
 }
 
 .groupFilterWrapper {
@@ -15,9 +17,9 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 3px 5px 20px 0px #0000000a;
-  overflow: visible; // ✅ Changed
+  overflow: visible;
   padding: 30px;
-  position: relative; // ✅ Added
+  position: relative;
 }
 
 .actionsCell {
@@ -29,7 +31,6 @@
   max-height: 640px;
   overflow-y: auto;
   overflow-x: auto;
-  // ✅ Remove overflow clipping for the header area
   &::before {
     content: '';
     display: block;
@@ -45,9 +46,8 @@
     position: sticky;
     top: 0;
     background-color: #fff;
-    z-index: 10; // ✅ Increased z-index
+    z-index: 10;
 
-    // ✅ Create space below header for dropdowns
     &::after {
       content: '';
       position: absolute;
@@ -96,7 +96,7 @@
   align-items: center;
   gap: 10px;
   position: relative;
-  z-index: 11; // ✅ Higher than thead
+  z-index: 11;
 }
 
 .filterIcon {
@@ -138,18 +138,10 @@
   text-align: center;
   padding: 40px 0;
 
-  .spinner {
-    font-size: 30px;
-    color: #39cdcc;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-  }
+
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+
 
 // Filter form styles
 .filterForm {

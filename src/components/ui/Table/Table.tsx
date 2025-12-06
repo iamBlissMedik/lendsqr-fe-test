@@ -5,6 +5,7 @@ import Pagination from "../Pagination/Pagination";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ColumnFilter from "./ColumnFilter/ColumnFilter";
 import { ReactNode } from "react";
+import Spinner from "../Spinner/Spinner";
 
 export interface Column {
   header?: string;
@@ -77,7 +78,7 @@ export default function Table({
               {loading ? (
                 <tr>
                   <td colSpan={columns.length} className={styles.loading}>
-                    <AiOutlineLoading3Quarters className={styles.spinner} />
+                    <Spinner />
                   </td>
                 </tr>
               ) : data.length ? (

@@ -1,3 +1,5 @@
+@import "../../../styles/abstracts/variables";
+
 .spinnerWrapper {
   display: flex;
   justify-content: center;
@@ -5,12 +7,14 @@
   height: 100%; // or 100vh if you want fullscreen
 }
 
-.spinner {
-  animation: spin 1s linear infinite;
-}
+  .spinner {
+    font-size: 30px;
+    color:$primary;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
