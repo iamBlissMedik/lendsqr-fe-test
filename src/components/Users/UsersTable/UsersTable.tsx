@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { generateUsers } from "@/lib/mockData";
 import Table, { Column } from "@/components/ui/Table/Table";
 import styles from "@/components/ui/Table/Table.module.scss";
 import RowActions, {
@@ -15,10 +14,12 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FiUserX } from "react-icons/fi";
 import { GrUserExpert } from "react-icons/gr";
 import { InputField } from "@/components/InputField/InputField";
+import { useGetUsers } from "@/services/users/users.hooks";
+import { IUser } from "@/types/users.types";
 
 export default function UsersTable() {
   const router = useRouter();
-  const dataSource = generateUsers();
+  const { users, isLoading } = useGetUsers();
 
   const [data, setData] = useState<any[]>([]);
   const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -36,6 +37,22 @@ export default function UsersTable() {
     date: "",
     status: "",
   });
+
+  interface IOption {
+    label: string;
+    value: string;
+  }
+
+  const getOrganizationOptions = (users: IUser[]): IOption[] => {
+    const unique = Array.from(new Set(users.map((u) => u.organization)));
+
+    const shuffled = unique.sort(() => Math.random() - 0.5);
+
+    return shuffled.slice(0, 5).map((org) => ({
+      label: org,
+      value: org,
+    }));
+  };
 
   const getUserActions = (row: any): RowAction[] => [
     {
@@ -61,11 +78,7 @@ export default function UsersTable() {
       label: "Organization",
       name: "organization",
       type: "select",
-      options: [
-        { value: "Lendsqr", label: "Lendsqr" },
-        { value: "Irorun", label: "Irorun" },
-        { value: "Lendstar", label: "Lendstar" },
-      ],
+      options: getOrganizationOptions(users),
       value: filters.organization,
       onChange: (value) => setFilters({ ...filters, organization: value }),
     },
@@ -117,7 +130,8 @@ export default function UsersTable() {
 
   // Apply filters (works for both group and individual filters)
   const applyFilters = () => {
-    let filtered = dataSource;
+    if (!users) return;
+    let filtered = users;
 
     if (filters.organization) {
       filtered = filtered.filter((user) =>
@@ -140,7 +154,7 @@ export default function UsersTable() {
       filtered = filtered.filter((user) => user.phone.includes(filters.phone));
     }
     if (filters.date) {
-      filtered = filtered.filter((user) => user.dateJoined === filters.date);
+      filtered = filtered.filter((user) => user.createdAt === filters.date);
     }
     if (filters.status) {
       filtered = filtered.filter((user) => user.status === filters.status);
@@ -161,8 +175,8 @@ export default function UsersTable() {
       date: "",
       status: "",
     });
-    setFilteredData(dataSource);
-    setTotal(dataSource.length);
+    setFilteredData(users);
+    setTotal(users.length);
     setPageIndex(0);
   };
 
@@ -257,7 +271,7 @@ export default function UsersTable() {
     },
     {
       header: "Date Joined",
-      accessor: "dateJoined",
+      accessor: "createdAt",
       filterable: true,
       filterContent: (
         <div className={styles.filterForm}>
@@ -317,12 +331,15 @@ export default function UsersTable() {
     },
   ];
 
+  // Initialize filteredData when users load
   useEffect(() => {
-    // Initialize with all data
-    setFilteredData(dataSource);
-    setTotal(dataSource.length);
-  }, []);
+    if (users) {
+      setFilteredData(users);
+      setTotal(users.length);
+    }
+  }, [users]);
 
+  // Handle pagination
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
@@ -339,7 +356,7 @@ export default function UsersTable() {
     <Table
       columns={columns}
       data={data}
-      loading={loading}
+      loading={loading || isLoading}
       total={total}
       pageIndex={pageIndex}
       pageSize={pageSize}

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative; // ✅ Added for dropdown positioning context
 }
 
 .groupFilterWrapper {
@@ -14,14 +15,13 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 3px 5px 20px 0px #0000000a;
-  overflow: hidden;
+  overflow: visible; // ✅ Changed
   padding: 30px;
+  position: relative; // ✅ Added
 }
 
 .actionsCell {
-  // ✅ Make sure this cell can contain the positioned dropdown
   position: relative;
-  // ✅ Prevent text overflow from interfering
   overflow: visible !important;
 }
 
@@ -29,6 +29,12 @@
   max-height: 640px;
   overflow-y: auto;
   overflow-x: auto;
+  // ✅ Remove overflow clipping for the header area
+  &::before {
+    content: '';
+    display: block;
+    height: 0;
+  }
 }
 
 .table {
@@ -39,7 +45,18 @@
     position: sticky;
     top: 0;
     background-color: #fff;
-    z-index: 2;
+    z-index: 10; // ✅ Increased z-index
+
+    // ✅ Create space below header for dropdowns
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -300px; // Space for dropdown
+      height: 300px;
+      pointer-events: none;
+    }
 
     th {
       padding: 20px 15px;
@@ -47,8 +64,9 @@
       font-weight: 600;
       font-size: 12px;
       text-transform: uppercase;
+      overflow: visible;
+      position: relative;
 
-      // ✅ Last column (actions) should also handle overflow
       &:last-child {
         overflow: visible;
       }
@@ -65,7 +83,6 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
-        // ✅ Last column (actions) needs visible overflow
         &:last-child {
           overflow: visible;
         }
@@ -78,6 +95,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+  z-index: 11; // ✅ Higher than thead
 }
 
 .filterIcon {

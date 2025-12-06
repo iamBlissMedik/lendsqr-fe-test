@@ -27,10 +27,8 @@
 }
 
 .dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed; // ✅ Changed from absolute to fixed
+  margin-top: 8px;
   background: #fff;
   border-radius: 4px;
   padding: 0;
@@ -38,7 +36,7 @@
   max-width: 600px;
   box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(84, 95, 125, 0.14);
-  z-index: 100;
+  z-index: 1000; // ✅ Very high z-index
   animation: slideDown 0.15s ease;
 }
 

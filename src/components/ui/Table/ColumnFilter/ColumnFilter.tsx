@@ -19,6 +19,17 @@ export default function ColumnFilter({
   showButtons = true,
 }: ColumnFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (isOpen && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.bottom + 8,
+        left: rect.left + rect.width / 2,
+      });
+    }
+  }, [isOpen]);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -65,12 +76,22 @@ export default function ColumnFilter({
       </button>
 
       {isOpen && (
-        <div ref={dropdownRef} className={styles.dropdown}>
+        <div
+          ref={dropdownRef}
+          className={styles.dropdown}
+          style={{
+            top: `${position.top}px`,
+            left: `${position.left}px`,
+            transform: "translateX(-50%)",
+          }}
+        >
           <div className={styles.content}>{children}</div>
 
           {showButtons && (
             <div className={styles.actions}>
-              <Button onClick={handleReset} variant="outlined">Reset</Button>
+              <Button onClick={handleReset} variant="outlined">
+                Reset
+              </Button>
               <Button onClick={handleApply}>Filter</Button>
             </div>
           )}
