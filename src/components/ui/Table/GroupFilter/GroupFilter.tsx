@@ -76,8 +76,8 @@ export default function GroupFilter({
           className={styles.input}
         >
           <option value="">Select</option>
-          {field.options?.map((opt) => (
-            <option key={opt.value} value={opt.value}>
+          {field.options?.map((opt, index) => (
+            <option key={index} value={opt.value}>
               {opt.label}
             </option>
           ))}
