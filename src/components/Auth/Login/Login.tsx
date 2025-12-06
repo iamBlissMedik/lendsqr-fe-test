@@ -19,7 +19,7 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid,isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -79,6 +79,7 @@ export default function Login() {
           }}
           fullWidth
           disabled={!isValid}
+          loading={isSubmitting}
         >
           log in
         </Button>

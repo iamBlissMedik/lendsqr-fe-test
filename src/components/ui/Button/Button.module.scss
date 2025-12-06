@@ -1,17 +1,24 @@
 @import "../../../styles/abstracts/variables";
 
-
 .button {
-    font-family: inherit;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-family: inherit;
   font-weight: 600;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+
   border-radius: 8px;
   cursor: pointer;
   padding: 15px 24px;
   transition: all 0.2s ease;
   border: 2px solid transparent;
+
   background-color: $primary;
   color: #fff;
 
@@ -19,6 +26,21 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+}
+
+/* Spinner circle */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Keep text aligned */
+.text {
+  display: inline-block;
 }
 
 /* Filled variant (default) */
@@ -34,7 +56,7 @@
 /* Outlined variant */
 .outlined {
   background-color: transparent;
-  border: 2px solid currentColor; // fallback if no borderColor passed
+  border: 2px solid currentColor;
   color: inherit;
 
   &:hover:not(:disabled) {
@@ -45,4 +67,10 @@
 /* Full width option */
 .fullWidth {
   width: 100%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

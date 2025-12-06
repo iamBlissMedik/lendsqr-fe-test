@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   borderColor?: string;
   textColor?: string;
   fullWidth?: boolean;
+  loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,24 +18,32 @@ const Button: React.FC<ButtonProps> = ({
   textColor,
   fullWidth = false,
   style,
+  loading = false,
+  disabled,
   ...props
 }) => {
   const classNames = [
     styles.button,
     styles[variant],
     fullWidth ? styles.fullWidth : "",
+    loading ? styles.loading : "",
   ].join(" ");
 
-  // Inline style for dynamic colors
   const customStyle: React.CSSProperties = {
-    borderColor: borderColor,
+    borderColor,
     color: textColor,
     ...style,
   };
 
   return (
-    <button className={classNames} style={customStyle} {...props}>
-      {children}
+    <button
+      className={classNames}
+      style={customStyle}
+      disabled={loading || disabled}
+      {...props}
+    >
+      {loading && <span className={styles.spinner}></span>}
+      <span className={styles.text}>{children}</span>
     </button>
   );
 };
