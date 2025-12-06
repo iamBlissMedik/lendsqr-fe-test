@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+.header {
+  margin-bottom: 73px;
+  padding-left: 97px ;
+  padding-top: 108px;
+
+  .logo-img {
+    width: 174px;
+    height: 36px;
+  }
+}
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 18px;
+    color: #666;
+     text-align: center;
+  }
+}

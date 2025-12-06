@@ -7,12 +7,14 @@ import { PasswordField } from "../../InputField/PasswordField";
 import Button from "../../ui/Button/Button";
 import { LoginFormValues, loginSchema } from "@/validation/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 type FormValues = {
   email: string;
   password: string;
 };
 export default function Login() {
+  const search = useSearchParams();
+  const callbackUrl = search.get("callbackUrl") ?? "/users";
   const router = useRouter();
   const {
     control,
@@ -25,7 +27,8 @@ export default function Login() {
   });
 
   const onSubmit = async (formData: LoginFormValues) => {
-    router.push("/users");
+    document.cookie = `auth=true; path=/;`;
+    router.push(callbackUrl);
   };
   return (
     <div className={styles["login-container"]}>
