@@ -7,14 +7,16 @@ import { primaryLinks, sidebarSections } from "@/constants/sidebarLinks";
 import styles from "./Sidebar.module.scss";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { IoClose } from "react-icons/io5";
+import { clearAllUsers } from "@/lib/indexedDB";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isSidebarOpen, closeSidebar } = useSidebar();
 
-  const logout = () => {
+  const logout = async() => {
     document.cookie = "auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    await clearAllUsers();
     router.push("/auth/login");
   };
 

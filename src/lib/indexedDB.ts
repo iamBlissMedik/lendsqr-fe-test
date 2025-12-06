@@ -39,3 +39,10 @@ export const deleteUser = async (id: string | number) => {
   const db = await initDB();
   return db.delete(STORE_NAME, id);
 };
+
+// Clear all users from the database (for logout)
+export const clearAllUsers = async () => {
+  const db = await initDB();
+  return db.clear(STORE_NAME);
+};
+
