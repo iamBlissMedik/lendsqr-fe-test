@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button/Button";
 import Image from "next/image";
 import Spinner from "@/components/ui/Spinner/Spinner";
 import { useGetUserById } from "@/services/users/users.hooks";
+import UserGeneralDetails from "./UserGeneralDetails/UserGeneralDetails";
 
 export default function UserDetails() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function UserDetails() {
   const userId = params.id as string;
 
   const { data: user, isLoading, isError } = useGetUserById(userId);
-  const [activeTab, setActiveTab] = useState("general");
+  const [activeTab, setActiveTab] = useState("General Details");
 
   if (isLoading) return <Spinner size={40} />;
   if (isError || !user) return <p>User not found</p>;
@@ -84,147 +85,30 @@ export default function UserDetails() {
 
         {/* Tabs */}
         <div className={styles.tabs}>
-          {["general", "documents", "bank", "loans", "savings", "app"].map(
-            (tab) => (
-              <button
-                key={tab}
-                className={activeTab === tab ? styles.active : ""}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1).replace("_", " ")}
-              </button>
-            )
-          )}
+          {[
+            "General Details",
+            "documents",
+            "Bank Details",
+            "loans",
+            "savings",
+            "App and System",
+          ].map((tab) => (
+            <button
+              key={tab}
+              className={activeTab === tab ? styles.active : ""}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1).replace("_", " ")}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Details Content */}
       <div className={styles.detailsCard}>
-        {activeTab === "general" && (
-          <>
-            {/* Personal Information */}
-            <section className={styles.section}>
-              <h3>Personal Information</h3>
-              <div className={styles.grid}>
-                <div className={styles.field}>
-                  <label>Full Name</label>
-                  <p>{user.personalInfo.fullName}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Phone Number</label>
-                  <p>{user.personalInfo.phoneNumber}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Email Address</label>
-                  <p>{user.personalInfo.emailAddress}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>BVN</label>
-                  <p>{user.personalInfo.bvn}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Gender</label>
-                  <p>{user.personalInfo.gender}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Marital Status</label>
-                  <p>{user.personalInfo.maritalStatus}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Children</label>
-                  <p>{user.personalInfo.children}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Type of Residence</label>
-                  <p>{user.personalInfo.typeOfResidence}</p>
-                </div>
-              </div>
-            </section>
+        {activeTab === "General Details" && <UserGeneralDetails user={user} />}
 
-            {/* Education and Employment */}
-            <section className={styles.section}>
-              <h3>Education and Employment</h3>
-              <div className={styles["grid-education"]}>
-                <div className={styles.field}>
-                  <label>Level of Education</label>
-                  <p>{user.educationEmployment.levelOfEducation}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Employment Status</label>
-                  <p>{user.educationEmployment.employmentStatus}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Sector of Employment</label>
-                  <p>{user.educationEmployment.sectorOfEmployment}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Duration of Employment</label>
-                  <p>{user.educationEmployment.durationOfEmployment}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Office Email</label>
-                  <p>{user.educationEmployment.officeEmail}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Monthly Income</label>
-                  <p>{user.educationEmployment.monthlyIncome}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Loan Repayment</label>
-                  <p>{user.educationEmployment.loanRepayment}</p>
-                </div>
-              </div>
-            </section>
-
-            {/* Socials */}
-            <section className={styles.section}>
-              <h3>Socials</h3>
-              <div
-                className={styles.grid}
-              >
-                <div className={styles.field}>
-                  <label>Twitter</label>
-                  <p>{user.socials.twitter}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Facebook</label>
-                  <p>{user.socials.facebook}</p>
-                </div>
-                <div
-                  className={styles.field}
-                >
-                  <label>Instagram</label>
-                  <p>{user.socials.instagram}</p>
-                </div>
-              </div>
-            </section>
-
-            {/* Guarantor */}
-            <section className={styles.section}>
-              <h3>Guarantor</h3>
-              <div className={styles.grid}>
-                <div className={styles.field}>
-                  <label>Full Name</label>
-                  <p>{user.guarantor.fullName}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Phone Number</label>
-                  <p>{user.guarantor.phoneNumber}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Email Address</label>
-                  <p>{user.guarantor.emailAddress}</p>
-                </div>
-                <div className={styles.field}>
-                  <label>Relationship</label>
-                  <p>{user.guarantor.relationship}</p>
-                </div>
-              </div>
-            </section>
-          </>
-        )}
-
-        {activeTab !== "general" && (
+        {activeTab !== "General Details" && (
           <div className={styles.emptyState}>
             <p>Content for {activeTab} tab coming soon...</p>
           </div>

@@ -1,0 +1,86 @@
+@import "../../../../styles/abstracts/variables";
+
+.section {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(33, 63, 125, 0.06);
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-blue;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+.grid-education {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: $text-gray;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-gray;
+
+  }
+}
+
+.emptyState {
+  padding: 60px 20px;
+  text-align: center;
+
+  p {
+    font-size: 16px;
+    color: $text-gray;
+  }
+}
