@@ -74,6 +74,7 @@ export default function Login() {
           <p className={styles["forgot-password"]}>Forgot PASSWORD?</p>
         </div>
         <Button
+          type="submit"
           style={{
             marginTop: "30px",
           }}
