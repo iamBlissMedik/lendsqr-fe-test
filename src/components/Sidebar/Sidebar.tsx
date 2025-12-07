@@ -3,25 +3,44 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import { primaryLinks, sidebarSections } from "@/constants/sidebarLinks";
 import styles from "./Sidebar.module.scss";
 import { useSidebar } from "@/contexts/SidebarContext";
 import { IoClose } from "react-icons/io5";
 import { clearAllUsers } from "@/lib/indexedDB";
+import Spinner from "../ui/Spinner/Spinner";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isSidebarOpen, closeSidebar } = useSidebar();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const logout = async () => {
-    document.cookie = "auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-    await clearAllUsers();
-    router.push("/auth/login");
+    setIsLoggingOut(true);
+    try {
+      document.cookie = "auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+      await clearAllUsers();
+      router.push("/auth/login");
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
     <>
+      {/* Loading overlay during logout */}
+      {isLoggingOut && (
+        <div
+          className={styles.loadingOverlay}
+          role="status"
+          aria-label="Logging out"
+        >
+          <Spinner />
+        </div>
+      )}
+
       {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div
