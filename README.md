@@ -118,13 +118,53 @@ npm run test
 yarn test
 ```
 
-### Example:
+### Test Coverage
+
+The application includes comprehensive tests for key components:
+
+#### Pagination Component (`Pagination.test.ts`)
+
+- ✓ Renders current page button and navigation buttons
+- ✓ Clicking Next and page buttons calls callbacks correctly
+- ✓ Dropdown toggles and selecting a page size calls the callback
+
+#### Sidebar Component (`Sidebar.test.tsx`)
+
+- ✓ Renders Users link correctly
+- ✓ Users link has active class when on /users route
+- ✓ Users link does NOT have active class when on different route
+- ✓ Displays logout spinner component with correct aria-label
+
+#### Button Component (`Button.test.tsx`)
+
+- ✓ Renders button with correct text
+- ✓ Button is disabled when disabled prop is true
+- ✓ Shows spinner when loading is true
+
+#### Additional Tests
+
+- StatsCard, Table, Sidebar, and other UI components have unit tests
+
+### Examples
 
 ```typescript
 test("renders personal information correctly", () => {
   render(<UserGeneralDetails user={mockUser} />);
   expect(screen.getByText("Full Name")).toBeInTheDocument();
   expect(screen.getByText("John Doe")).toBeInTheDocument();
+});
+
+// Pagination test with dropdown
+test("dropdown toggles and selecting a page size calls callback", () => {
+  render(<Pagination {...paginationProps} />);
+  const dropdownBtn = screen.getByLabelText("Items per page");
+  fireEvent.click(dropdownBtn);
+
+  const option25 = screen.getByRole("option", { name: "25" });
+  expect(option25).toBeInTheDocument();
+
+  fireEvent.click(option25);
+  expect(setPageSize).toHaveBeenCalledWith(25);
 });
 ```
 
