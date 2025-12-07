@@ -28,6 +28,7 @@ interface TableProps {
   setPageSize: (size: number) => void;
   groupFilter?: ReactNode; // Optional group filter component
   showIndividualFilters?: boolean; // Show individual column filters (default: true)
+  name: string;
 }
 
 export default function Table({
@@ -41,6 +42,7 @@ export default function Table({
   setPageSize,
   groupFilter,
   showIndividualFilters = true,
+  name,
 }: TableProps) {
   return (
     <div className={styles.tableWrapper}>
@@ -50,11 +52,16 @@ export default function Table({
 
       <div className={styles.tableCard}>
         <div className={styles.tableContainer}>
-          <table className={styles.table}>
+          <table
+            className={styles.table}
+            role="table"
+            // aria-label="Users data table"
+            aria-label={`${name} data table`}
+          >
             <thead>
-              <tr>
+              <tr role="row">
                 {columns.map((col, i) => (
-                  <th key={i}>
+                  <th key={i} role="columnheader" scope="col">
                     {col.header && (
                       <div className={styles.headerWithIcon}>
                         <span>{col.header}</span>
@@ -76,7 +83,7 @@ export default function Table({
             </thead>
             <tbody>
               {loading ? (
-                <tr>
+                <tr role="row" aria-busy="true">
                   <td colSpan={columns.length} className={styles.loading}>
                     <Spinner />
                   </td>

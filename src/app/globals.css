@@ -3,9 +3,17 @@ body {
   margin: 0;
   padding: 0;
   color: #545f7d;
- 
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Reset native button styles */
+button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

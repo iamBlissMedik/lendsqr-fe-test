@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   textColor?: string;
   fullWidth?: boolean;
   loading?: boolean;
+  ariaLabel?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   loading = false,
   disabled,
+  ariaLabel,
   ...props
 }) => {
   const classNames = [
@@ -40,9 +42,11 @@ const Button: React.FC<ButtonProps> = ({
       className={classNames}
       style={customStyle}
       disabled={loading || disabled}
+      aria-busy={loading}
+      aria-label={ariaLabel}
       {...props}
     >
-      {loading && <span className={styles.spinner}></span>}
+      {loading && <span className={styles.spinner} aria-hidden="true"></span>}
       <span className={styles.text}>{children}</span>
     </button>
   );

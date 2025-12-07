@@ -33,8 +33,12 @@ export default function Navbar() {
 
         {/* Search box */}
         <div className={styles.searchBox}>
-          <input type="text" placeholder="Search for anything" />
-          <div className={styles.searchIcon}>
+          <input
+            type="text"
+            placeholder="Search for anything"
+            aria-label="Search users"
+          />
+          <div className={styles.searchIcon} aria-hidden="true">
             <IoSearch />
           </div>
         </div>
@@ -45,19 +49,32 @@ export default function Navbar() {
             Docs
           </Link>
 
-          <LiaBellSolid className={styles.bell} />
+          <button
+            className={styles.bellButton}
+            aria-label="Notifications"
+            type="button"
+          >
+            <LiaBellSolid className={styles.bell} />
+          </button>
 
           <Image
             src="/avatar.png"
-            alt="user"
+            alt="User profile picture"
             width={48}
             height={48}
             className={styles.userPic}
           />
 
-          <p className={styles.username}>
-            Adedeji <FaCaretDown />
-          </p>
+          <button
+            className={styles.userDropdown}
+            aria-label="User menu"
+            aria-haspopup="menu"
+            // type="button"
+          >
+            <span className={styles.username}>
+              Adedeji <FaCaretDown aria-hidden="true" />
+            </span>
+          </button>
         </div>
       </nav>
     </header>

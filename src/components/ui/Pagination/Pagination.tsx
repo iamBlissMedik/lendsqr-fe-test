@@ -44,7 +44,10 @@ export default function Pagination({
   };
 
   return (
-    <div className={styles["pagination-container"]}>
+    <nav
+      className={styles["pagination-container"]}
+      aria-label="Pagination navigation"
+    >
       <div className={styles["pagination-left"]}>
         <span>Showing</span>
 
@@ -55,6 +58,8 @@ export default function Pagination({
             onClick={() => setIsOpen(!isOpen)}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
+            aria-label="Items per page"
+            type="button"
           >
             {pageSize}
             <FaChevronDown
@@ -127,6 +132,6 @@ export default function Pagination({
           <FaChevronRight />
         </button>
       </div>
-    </div>
+    </nav>
   );
 }

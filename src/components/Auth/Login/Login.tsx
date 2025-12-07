@@ -19,7 +19,7 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid,isSubmitting },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -42,6 +42,7 @@ export default function Login() {
       <form
         className={styles["form-container"]}
         onSubmit={handleSubmit(onSubmit)}
+        aria-label="Login form"
       >
         <h1>Welcome!</h1>
         <p>Enter details to login.</p>
@@ -71,7 +72,13 @@ export default function Login() {
               />
             )}
           />
-          <p className={styles["forgot-password"]}>Forgot PASSWORD?</p>
+          <a
+            href="#"
+            className={styles["forgot-password"]}
+            aria-label="Forgot your password"
+          >
+            Forgot PASSWORD?
+          </a>
         </div>
         <Button
           type="submit"
@@ -81,6 +88,7 @@ export default function Login() {
           fullWidth
           disabled={!isValid}
           loading={isSubmitting}
+          ariaLabel={isSubmitting ? "Logging in" : "Log in"}
         >
           log in
         </Button>

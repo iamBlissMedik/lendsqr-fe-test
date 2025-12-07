@@ -361,6 +361,7 @@ export default function UsersTable({users}:UsersTableProps) {
 
   return (
     <Table
+      name="users"
       columns={columns}
       data={data}
       loading={loading}

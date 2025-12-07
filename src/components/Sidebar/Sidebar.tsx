@@ -14,7 +14,7 @@ export default function Sidebar() {
   const router = useRouter();
   const { isSidebarOpen, closeSidebar } = useSidebar();
 
-  const logout = async() => {
+  const logout = async () => {
     document.cookie = "auth=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;";
     await clearAllUsers();
     router.push("/auth/login");
@@ -30,18 +30,20 @@ export default function Sidebar() {
           aria-hidden="true"
         />
       )}
-      <aside
+      <nav
         className={`${styles.sidebar} ${
           isSidebarOpen ? styles.open : ""
         } hide-scroll-bar`}
+        aria-label="Main navigation"
       >
         {/* Mobile Close Button */}
         <button
           className={styles.closeBtn}
           onClick={closeSidebar}
           aria-label="Close sidebar"
+          type="button"
         >
-          <IoClose />
+          <IoClose aria-hidden="true" />
         </button>
         {/* First two links */}
         {primaryLinks.map((link, index) => {
@@ -53,6 +55,7 @@ export default function Sidebar() {
               className={`${styles["nav-link"]} ${
                 isActive ? styles["active-1"] : ""
               } ${styles["top-side"]}`}
+              aria-current={isActive ? "page" : undefined}
             >
               {link.icon && (
                 <Image src={link.icon} alt="icon" width={16} height={16} />
@@ -67,7 +70,10 @@ export default function Sidebar() {
 
         {/* Sections */}
         {sidebarSections.map((section) => (
-          <div key={section.title}>
+          <section
+            key={section.title}
+            aria-label={`${section.title} navigation`}
+          >
             <h4 className={styles["links-header"]}>{section.title}</h4>
             <ul>
               {section.links.map((link, index) => {
@@ -109,9 +115,9 @@ export default function Sidebar() {
                 );
               })}
             </ul>
-          </div>
+          </section>
         ))}
-      </aside>
+      </nav>
     </>
   );
 }
