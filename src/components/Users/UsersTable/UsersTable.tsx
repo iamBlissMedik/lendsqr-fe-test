@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useEffect, useMemo, useReducer, useCallback, Reducer } from "react";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  useReducer,
+  useCallback,
+  Reducer,
+} from "react";
 import { useRouter } from "next/navigation";
 import Table, { Column } from "@/components/ui/Table/Table";
 import styles from "@/components/ui/Table/Table.module.scss";
@@ -24,13 +31,13 @@ export interface UsersTableProps {
 /**
  * UsersTable Component
  * Displays a paginated, filterable table of users with action buttons.
- * 
+ *
  * Features:
  * - Multi-field filtering (organization, username, email, phone, date, status)
  * - Pagination with configurable page size
  * - Individual column filters and group filter panel
  * - Row actions (view details, blacklist, activate)
- * 
+ *
  * @param users - Array of user objects to display
  * @returns Rendered table component with filters and pagination
  */
@@ -82,7 +89,10 @@ const tableReducer: Reducer<TableState, TableAction> = (state, action) => {
     case "SET_FILTER":
       return {
         ...state,
-        filters: { ...state.filters, [action.payload.key]: action.payload.value },
+        filters: {
+          ...state.filters,
+          [action.payload.key]: action.payload.value,
+        },
       };
     case "RESET_FILTERS":
       return {
@@ -180,7 +190,10 @@ export default function UsersTable({ users }: UsersTableProps) {
         options: organizationOptions,
         value: state.filters.organization,
         onChange: (value) =>
-          dispatch({ type: "SET_FILTER", payload: { key: "organization", value } }),
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "organization", value },
+          }),
       },
       {
         label: "Username",
@@ -265,10 +278,14 @@ export default function UsersTable({ users }: UsersTableProps) {
       );
     }
     if (state.filters.date) {
-      filtered = filtered.filter((user) => user.createdAt === state.filters.date);
+      filtered = filtered.filter(
+        (user) => user.createdAt === state.filters.date
+      );
     }
     if (state.filters.status) {
-      filtered = filtered.filter((user) => user.status === state.filters.status);
+      filtered = filtered.filter(
+        (user) => user.status === state.filters.status
+      );
     }
 
     dispatch({ type: "SET_FILTERED_DATA", payload: filtered });
@@ -308,7 +325,10 @@ export default function UsersTable({ users }: UsersTableProps) {
         ),
         onFilterApply: applyFilters,
         onFilterReset: () => {
-          dispatch({ type: "SET_FILTER", payload: { key: "organization", value: "" } });
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "organization", value: "" },
+          });
           setTimeout(applyFilters, 0);
         },
       },
@@ -334,7 +354,10 @@ export default function UsersTable({ users }: UsersTableProps) {
         ),
         onFilterApply: applyFilters,
         onFilterReset: () => {
-          dispatch({ type: "SET_FILTER", payload: { key: "username", value: "" } });
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "username", value: "" },
+          });
           setTimeout(applyFilters, 0);
         },
       },
@@ -350,14 +373,20 @@ export default function UsersTable({ users }: UsersTableProps) {
               placeholder="Email"
               value={state.filters.email}
               onChange={(e) =>
-                dispatch({ type: "SET_FILTER", payload: { key: "email", value: e } })
+                dispatch({
+                  type: "SET_FILTER",
+                  payload: { key: "email", value: e },
+                })
               }
             />
           </div>
         ),
         onFilterApply: applyFilters,
         onFilterReset: () => {
-          dispatch({ type: "SET_FILTER", payload: { key: "email", value: "" } });
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "email", value: "" },
+          });
           setTimeout(applyFilters, 0);
         },
       },
@@ -372,14 +401,20 @@ export default function UsersTable({ users }: UsersTableProps) {
               placeholder="Phone Number"
               value={state.filters.phone}
               onChange={(e) =>
-                dispatch({ type: "SET_FILTER", payload: { key: "phone", value: e } })
+                dispatch({
+                  type: "SET_FILTER",
+                  payload: { key: "phone", value: e },
+                })
               }
             />
           </div>
         ),
         onFilterApply: applyFilters,
         onFilterReset: () => {
-          dispatch({ type: "SET_FILTER", payload: { key: "phone", value: "" } });
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "phone", value: "" },
+          });
           setTimeout(applyFilters, 0);
         },
       },
@@ -394,7 +429,10 @@ export default function UsersTable({ users }: UsersTableProps) {
               type="date"
               value={state.filters.date}
               onChange={(e) =>
-                dispatch({ type: "SET_FILTER", payload: { key: "date", value: e } })
+                dispatch({
+                  type: "SET_FILTER",
+                  payload: { key: "date", value: e },
+                })
               }
             />
           </div>
@@ -439,7 +477,10 @@ export default function UsersTable({ users }: UsersTableProps) {
         ),
         onFilterApply: applyFilters,
         onFilterReset: () => {
-          dispatch({ type: "SET_FILTER", payload: { key: "status", value: "" } });
+          dispatch({
+            type: "SET_FILTER",
+            payload: { key: "status", value: "" },
+          });
           setTimeout(applyFilters, 0);
         },
       },
@@ -467,7 +508,10 @@ export default function UsersTable({ users }: UsersTableProps) {
     const timer = setTimeout(() => {
       const start = state.pageIndex * state.pageSize;
       const end = start + state.pageSize;
-      dispatch({ type: "SET_DATA", payload: state.filteredData.slice(start, end) });
+      dispatch({
+        type: "SET_DATA",
+        payload: state.filteredData.slice(start, end),
+      });
       dispatch({ type: "SET_LOADING", payload: false });
     }, 200);
 

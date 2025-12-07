@@ -7,7 +7,7 @@ import styles from "./Button.module.scss";
  * Button component props interface
  * @interface ButtonProps
  * @extends ButtonHTMLAttributes<HTMLButtonElement>
- * 
+ *
  * @property {("filled" | "outlined")} [variant="filled"] - Button style variant
  * @property {string} [borderColor] - Custom border color (CSS color value)
  * @property {string} [textColor] - Custom text color (CSS color value)
@@ -26,10 +26,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 /**
  * Reusable Button Component
- * 
+ *
  * Displays a clickable button with support for loading states, variants, and accessibility.
  * Automatically disables during loading to prevent multiple submissions.
- * 
+ *
  * Features:
  * - Two style variants: filled (default) and outlined
  * - Loading state with spinner animation
@@ -37,30 +37,30 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * - Full width option
  * - Accessibility support (aria-busy, aria-label)
  * - Keyboard navigation support
- * 
+ *
  * @component
  * @example
  * // Basic button
  * <Button>Click Me</Button>
- * 
+ *
  * @example
  * // Outlined button with custom color
  * <Button variant="outlined" borderColor="#39cdcc">
  *   Submit
  * </Button>
- * 
+ *
  * @example
  * // Loading state
  * <Button loading={isSubmitting} disabled={!isFormValid}>
  *   {isSubmitting ? "Submitting..." : "Submit Form"}
  * </Button>
- * 
+ *
  * @example
  * // Full width with accessibility label
  * <Button fullWidth ariaLabel="Submit login form">
  *   Log In
  * </Button>
- * 
+ *
  * @param props - Button component props
  * @returns Rendered button element with loading and styling options
  */

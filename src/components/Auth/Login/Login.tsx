@@ -16,10 +16,10 @@ type FormValues = {
 
 /**
  * Login Component
- * 
+ *
  * Handles user authentication with email and password validation.
  * Integrates with React Hook Form for form state management and Zod for schema validation.
- * 
+ *
  * Features:
  * - Email and password validation using Zod schema
  * - Real-time form validation (onChange mode)
@@ -28,28 +28,28 @@ type FormValues = {
  * - Accessibility features (aria-label, error linking)
  * - Responsive design with mobile support
  * - Cookie-based session management
- * 
+ *
  * Validation Rules:
  * - Email: Valid email format required
  * - Password: Minimum 8 characters required
- * 
+ *
  * @component
  * @example
  * // Basic login form
  * <Login />
- * 
+ *
  * @example
  * // With callback URL in query params
  * // URL: /auth/login?callbackUrl=/dashboard
  * <Login />
- * 
+ *
  * Flow:
  * 1. User enters email and password
  * 2. Form validates in real-time
  * 3. Submit button enables when valid
  * 4. On submit, sets auth cookie
  * 5. Redirects to callback URL or dashboard
- * 
+ *
  * @returns Rendered login form component
  */
 export default function Login() {
@@ -69,7 +69,7 @@ export default function Login() {
   /**
    * Handles form submission
    * Sets auth cookie and redirects to callback URL
-   * 
+   *
    * @param formData - Validated login form data
    */
   const onSubmit = async (formData: LoginFormValues) => {

@@ -233,11 +233,13 @@ A centralized design token system ensures consistency across the application:
 Components follow these patterns:
 
 1. **UI Components** (`src/components/ui/`): Reusable, presentational components
+
    - Button, Pagination, Spinner, Table, StatsCard
    - Highly customizable via props
    - Comprehensive JSDoc documentation
 
 2. **Feature Components** (`src/components/Auth/`, `src/components/Users/`): Domain-specific logic
+
    - Login, UsersTable, UserDetails
    - Manages business logic and data fetching
    - Integrates with custom hooks and services
