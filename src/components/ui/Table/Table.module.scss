@@ -41,6 +41,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed; // ✅ Fixed layout for predictable column widths
 
   thead {
     position: sticky;
@@ -67,6 +68,16 @@
       overflow: visible;
       position: relative;
       white-space: nowrap;
+      height: var(--table-row-height); // ✅ Explicit row height (56px)
+
+      &:nth-child(1) { width: 8%; }   // Actions
+      &:nth-child(2) { width: 14%; }  // Organization
+      &:nth-child(3) { width: 14%; }  // Username
+      &:nth-child(4) { width: 18%; }  // Email
+      &:nth-child(5) { width: 14%; }  // Phone Number
+      &:nth-child(6) { width: 16%; }  // Date Joined
+      &:nth-child(7) { width: 12%; }  // Status
+      &:nth-child(8) { width: 4%; }   // Row actions
 
       &:last-child {
         overflow: visible;
@@ -76,18 +87,26 @@
 
   tbody {
     tr {
+      height: var(--table-row-height); // ✅ Explicit row height (56px)
+
       td {
         font-size: 14px;
-        padding: 20px 15px;
+        padding: 0 15px; // Vertical padding removed, handled by row height
         border-bottom: 1px solid #f0f0f0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        display: table-cell; // ✅ Ensure cells respect column width
+        vertical-align: middle; // ✅ Vertical centering
 
         &:last-child {
           overflow: visible;
         }
       }
+    }
+
+    tr:hover {
+      background-color: #fafafa; // ✅ Hover state for better UX
     }
   }
 }
