@@ -63,13 +63,18 @@ describe("Pagination Component", () => {
       })
     );
 
-    const dropdownBtn = screen.getByRole("button", { name: "10" });
+    // Click the dropdown button to open
+    const dropdownBtn = screen.getByLabelText("Items per page");
     fireEvent.click(dropdownBtn);
 
-    // Dropdown options rendered
-    expect(screen.getByRole("option", { name: "25" })).toBeInTheDocument();
+    // Dropdown options (li elements with role="option") are now visible
+    const option25 = screen.getByRole("option", { name: "25" });
+    expect(option25).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("option", { name: "25" }));
+    // Click the option (li element)
+    fireEvent.click(option25);
+
+    // Verify callback was called with correct size
     expect(setPageSize).toHaveBeenCalledWith(25);
   });
 });
