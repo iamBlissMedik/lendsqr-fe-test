@@ -12,40 +12,42 @@ const UserGeneralDetails: React.FC<Props> = ({ user }) => {
   return (
     <>
       {/* Personal Information */}
-      <section className={styles.section}>
+      <section className={styles.section} aria-label="Personal Information">
         <h3>Personal Information</h3>
         <div className={styles.grid}>
           <div className={styles.field}>
             <label>Full Name</label>
-            <p>{user.personalInfo.fullName}</p>
+            <p aria-label="Full Name">{user.personalInfo.fullName}</p>
           </div>
           <div className={styles.field}>
             <label>Phone Number</label>
-            <p>{user.personalInfo.phoneNumber}</p>
+            <p aria-label="Phone Number">{user.personalInfo.phoneNumber}</p>
           </div>
           <div className={styles.field}>
             <label>Email Address</label>
-            <p>{user.personalInfo.emailAddress}</p>
+            <p aria-label="Email Address">{user.personalInfo.emailAddress}</p>
           </div>
           <div className={styles.field}>
             <label>BVN</label>
-            <p>{user.personalInfo.bvn}</p>
+            <p aria-label="BVN">{user.personalInfo.bvn}</p>
           </div>
           <div className={styles.field}>
             <label>Gender</label>
-            <p>{user.personalInfo.gender}</p>
+            <p aria-label="Gender">{user.personalInfo.gender}</p>
           </div>
           <div className={styles.field}>
             <label>Marital Status</label>
-            <p>{user.personalInfo.maritalStatus}</p>
+            <p aria-label="Marital Status">{user.personalInfo.maritalStatus}</p>
           </div>
           <div className={styles.field}>
             <label>Children</label>
-            <p>{user.personalInfo.children}</p>
+            <p aria-label="Children">{user.personalInfo.children}</p>
           </div>
           <div className={styles.field}>
             <label>Type of Residence</label>
-            <p>{user.personalInfo.typeOfResidence}</p>
+            <p aria-label="Type of Residence">
+              {user.personalInfo.typeOfResidence}
+            </p>
           </div>
         </div>
       </section>
@@ -56,31 +58,45 @@ const UserGeneralDetails: React.FC<Props> = ({ user }) => {
         <div className={styles["grid-education"]}>
           <div className={styles.field}>
             <label>Level of Education</label>
-            <p>{user.educationEmployment.levelOfEducation}</p>
+            <p aria-label="Level of Education">
+              {user.educationEmployment.levelOfEducation}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Employment Status</label>
-            <p>{user.educationEmployment.employmentStatus}</p>
+            <p aria-label="Employment Status">
+              {user.educationEmployment.employmentStatus}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Sector of Employment</label>
-            <p>{user.educationEmployment.sectorOfEmployment}</p>
+            <p aria-label="Sector of Employment">
+              {user.educationEmployment.sectorOfEmployment}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Duration of Employment</label>
-            <p>{user.educationEmployment.durationOfEmployment}</p>
+            <p aria-label="Duration of Employment">
+              {user.educationEmployment.durationOfEmployment}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Office Email</label>
-            <p>{user.educationEmployment.officeEmail}</p>
+            <p aria-label="Office Email">
+              {user.educationEmployment.officeEmail}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Monthly Income</label>
-            <p>{user.educationEmployment.monthlyIncome}</p>
+            <p aria-label="Monthly Income">
+              {user.educationEmployment.monthlyIncome}
+            </p>
           </div>
           <div className={styles.field}>
             <label>Loan Repayment</label>
-            <p>{user.educationEmployment.loanRepayment}</p>
+            <p aria-label="Loan Repayment">
+              {user.educationEmployment.loanRepayment}
+            </p>
           </div>
         </div>
       </section>
