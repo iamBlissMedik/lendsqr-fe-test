@@ -13,7 +13,7 @@ export default function StatsCard({ img, title, value }: StatsCardProps) {
     <div className={styles.box}>
       <Image src={img} alt={title} width={40} height={40} />
       <h4>{title}</h4>
-      <p>{value}</p>
+      <p>{value || "N/A"}</p>
     </div>
   );
 }
