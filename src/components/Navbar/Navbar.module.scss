@@ -51,7 +51,9 @@
 
 .searchBox {
   position: relative;
-  width: 400px;
+  width: 600px;
+  flex-shrink: 1;
+  min-width: 0;
 
   input {
     width: 100%;
@@ -68,6 +70,10 @@
       opacity: 0.6;
       font-size: 14px;
     }
+  }
+  // Reduce to 400px on screens 1400px and below
+  @media (max-width: 1400px) {
+    width: 400px;
   }
 }
 
