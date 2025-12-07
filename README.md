@@ -5,10 +5,6 @@ and handling actions like viewing, blacklisting, and activating users. Includes
 TypeScript for type safety, SCSS for styling, and testing with Jest & React
 Testing Library.
 
-## Assessment Score: 7.9/10 (B+) - Production Ready
-
-See [ASSESSMENT_REPORT.md](./ASSESSMENT_REPORT.md) for detailed evaluation across 7 criteria.
-
 ---
 
 ## Table of Contents
