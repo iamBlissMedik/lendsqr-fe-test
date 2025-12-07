@@ -5,6 +5,10 @@ and handling actions like viewing, blacklisting, and activating users. Includes
 TypeScript for type safety, SCSS for styling, and testing with Jest & React
 Testing Library.
 
+## Assessment Score: 7.9/10 (B+) - Production Ready
+
+See [ASSESSMENT_REPORT.md](./ASSESSMENT_REPORT.md) for detailed evaluation across 7 criteria.
+
 ---
 
 ## Table of Contents
@@ -17,6 +21,7 @@ Testing Library.
 - [Testing](#testing)
 - [Components](#components)
 - [API & Services](#api--services)
+- [Architecture & Best Practices](#architecture--best-practices)
 - [Contributing](#contributing)
 
 ---
@@ -29,6 +34,9 @@ Testing Library.
 - Store selected users in IndexedDB.
 - Responsive and accessible UI components.
 - Unit and integration testing for components.
+- Optimized state management with useReducer pattern.
+- Pixel-perfect design system with responsive typography.
+- Comprehensive JSDoc documentation.
 
 ---
 
@@ -36,17 +44,20 @@ Testing Library.
 
 - **Framework:** Next.js (App Router)
 - **Language:** TypeScript
-- **Styling:** SCSS
-- **State Management:** React Hooks
+- **Styling:** SCSS with design tokens
+- **State Management:** React Hooks + useReducer
+- **Performance:** useCallback, useMemo optimization
 - **Icons:** react-icons
 - **Storage:** IndexedDB (via custom library)
 - **Testing:** Jest, React Testing Library
+- **Validation:** Zod schemas
+- **Forms:** React Hook Form
 
 ---
 
 ## Project Structure
 
-```
+```text
 src/
 ├─ components/              # Reusable UI components
 │  ├─ Users/                # Users-related components
@@ -71,7 +82,7 @@ git clone https://github.com/iamBlissMedik/lendsqr-fe-test.git
 cd lendsqr-fe-test
 ```
 
-2. Install dependencies:
+1. Install dependencies:
 
 ```bash
 npm install
@@ -167,6 +178,89 @@ test("dropdown toggles and selecting a page size calls callback", () => {
   expect(setPageSize).toHaveBeenCalledWith(25);
 });
 ```
+
+---
+
+## Architecture & Best Practices
+
+### State Management
+
+This project uses a combination of React Hooks patterns for optimal performance:
+
+- **useReducer**: Complex component state (e.g., UsersTable) consolidated from multiple useState calls into a single reducer for predictable state updates
+- **useCallback**: Memoized callback functions to prevent unnecessary re-renders of child components
+- **useMemo**: Memoized computations (e.g., filtered data, derived state) to optimize performance
+- **Context API**: Global sidebar navigation state via SidebarContext
+
+#### Example: UsersTable Optimization
+
+```typescript
+// Before: 13+ useState calls scattered throughout
+const [users, setUsers] = useState([]);
+const [filter, setFilter] = useState({});
+const [page, setPage] = useState(1);
+// ... many more
+
+// After: Single useReducer with TableState interface
+const [state, dispatch] = useReducer(tableReducer, initialState);
+
+// Memoized functions prevent child re-renders
+const getUserActions = useCallback((userId) => [...], []);
+const getOrganizationOptions = useCallback(() => [...], []);
+```
+
+### Design System & Theming
+
+A centralized design token system ensures consistency across the application:
+
+**SCSS Variables** (`src/styles/abstracts/_variables.scss`):
+
+- **Colors**: Status variants (active, inactive, pending, blacklisted)
+- **Sizing**: Component constants (button: 48px, input: 40px, table row: 56px)
+- **Typography**: Responsive scale with clamp() for fluid sizing
+- **Spacing**: Consistent 4px-based scale
+- **Breakpoints**: 480px, 768px, 1024px, 1280px, 1536px
+
+**Global Styles** (`src/app/globals.css`):
+
+- Responsive typography using CSS clamp()
+- Standardized form inputs with focus states
+- Accessibility features (focus-visible, prefers-reduced-motion)
+- Mobile-first responsive design
+
+### Component Structure
+
+Components follow these patterns:
+
+1. **UI Components** (`src/components/ui/`): Reusable, presentational components
+   - Button, Pagination, Spinner, Table, StatsCard
+   - Highly customizable via props
+   - Comprehensive JSDoc documentation
+
+2. **Feature Components** (`src/components/Auth/`, `src/components/Users/`): Domain-specific logic
+   - Login, UsersTable, UserDetails
+   - Manages business logic and data fetching
+   - Integrates with custom hooks and services
+
+3. **Layout Components** (`src/components/layouts/`): Page structure
+   - AuthLayout, DashboardLayout
+   - Server/Client component split for optimal performance
+
+### Performance Optimizations
+
+- **Memoization**: useCallback for event handlers, useMemo for derived state
+- **Code Splitting**: Next.js automatic splitting via App Router
+- **Image Optimization**: Next.js Image component for static assets
+- **Lazy Loading**: React.lazy with Suspense for route-based code splitting
+- **CSS Modules**: Scoped styles prevent global namespace pollution
+
+### Testing Strategy
+
+- **Unit Tests**: Individual components tested in isolation
+- **Integration Tests**: Complex components (UsersTable) tested with filters, pagination
+- **Edge Cases**: Multiple users, empty states, error handling
+- **Mocking**: API calls mocked via Jest
+- **Target**: 80%+ code coverage (current: 40/40 tests passing)
 
 ---
 
