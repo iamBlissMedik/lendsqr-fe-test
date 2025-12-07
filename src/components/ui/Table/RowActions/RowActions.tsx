@@ -65,11 +65,12 @@ export default function RowActions({
               key={index}
               className={`${styles.item} ${action.className || ""}`}
               onClick={() => handleAction(action.onClick)}
+              type="button"
             >
               {action.icon && (
                 <span className={styles.icon}>{action.icon}</span>
               )}
-              {action.label}
+              <span className={styles.label}>{action.label}</span>
             </button>
           ))}
         </div>
