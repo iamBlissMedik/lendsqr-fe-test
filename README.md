@@ -1,6 +1,6 @@
 # lendsqr-fe-test
 
-A modern React/Next.js application for managing users, displaying user details,
+A modern Next.js application for managing users, displaying user details,
 and handling actions like viewing, blacklisting, and activating users. Includes
 TypeScript for type safety, SCSS for styling, and testing with Jest & React
 Testing Library.
