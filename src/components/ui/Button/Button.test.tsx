@@ -64,6 +64,7 @@ describe("Button Component", () => {
     expect(handler).not.toHaveBeenCalled();
   });
 
+    
   test("does NOT show spinner when loading=false", () => {
     render(<Button loading={false}>Submit</Button>);
     const spinner = screen
