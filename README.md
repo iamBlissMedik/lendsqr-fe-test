@@ -57,7 +57,7 @@ src/
 ├─ lib/                     # Utility functions and IndexedDB interactions
 ├─ services/                # API hooks and data fetching
 ├─ types/                   # TypeScript interfaces (e.g., IUser)
-└─  app/                    # Next.js app router
+└─ app/                     # Next.js app router
 ```
 
 ---
@@ -71,7 +71,7 @@ git clone https://github.com/iamBlissMedik/lendsqr-fe-test.git
 cd lendsqr-fe-test
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
@@ -92,6 +92,11 @@ npm run dev
 # or
 yarn dev
 ```
+
+The app will start at `http://localhost:3000`.
+
+> **Note:** To view the authentication/login page after you have logged in, click the **Logout** button
+> located in the sidebar.
 
 ### Production build
 
