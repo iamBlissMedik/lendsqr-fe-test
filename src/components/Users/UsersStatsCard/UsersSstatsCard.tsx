@@ -9,12 +9,6 @@ export interface UsersStatsCardProps {
   users: IUser[];
 }
 const UsersStatsCard = ({ users }: UsersStatsCardProps) => {
-  // const { users, isLoading } = useGetUsers();
-
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-
   const totalUsers = users?.length || 0;
   const activeUsers = users?.filter((u) => u.status === "Active").length || 0;
   const usersWithLoans =
