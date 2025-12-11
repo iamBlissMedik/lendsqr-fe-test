@@ -30,7 +30,7 @@
 .tableContainer {
   max-height: 640px;
   overflow-y: auto;
-  overflow-x: auto;
+  overflow-x: auto; // ✅ Horizontal scroll enabled
   &::before {
     content: "";
     display: block;
@@ -41,7 +41,8 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; // ✅ Fixed layout for predictable column widths
+  table-layout: auto; // ✅ Changed from fixed to auto for content-based width
+  min-width: 100%; // ✅ Ensures table doesn't shrink below container
 
   thead {
     position: sticky;
@@ -67,32 +68,33 @@
       text-transform: uppercase;
       overflow: visible;
       position: relative;
-      white-space: nowrap;
-      height: var(--table-row-height); // ✅ Explicit row height (56px)
+      white-space: nowrap; // ✅ Prevents header text wrapping
+      height: var(--table-row-height);
+      min-width: fit-content; // ✅ Ensures header takes needed space
 
       &:nth-child(1) {
-        width: 8%;
+        min-width: 80px;
       } // Actions
       &:nth-child(2) {
-        width: 14%;
+        min-width: 140px;
       } // Organization
       &:nth-child(3) {
-        width: 14%;
+        min-width: 140px;
       } // Username
       &:nth-child(4) {
-        width: 18%;
+        min-width: 180px;
       } // Email
       &:nth-child(5) {
-        width: 14%;
+        min-width: 140px;
       } // Phone Number
       &:nth-child(6) {
-        width: 16%;
+        min-width: 160px;
       } // Date Joined
       &:nth-child(7) {
-        width: 12%;
+        min-width: 120px;
       } // Status
       &:nth-child(8) {
-        width: 4%;
+        min-width: 60px;
       } // Row actions
 
       &:last-child {
@@ -103,17 +105,16 @@
 
   tbody {
     tr {
-      height: var(--table-row-height); // ✅ Explicit row height (56px)
+      height: var(--table-row-height);
 
       td {
         font-size: 14px;
-        padding: 0 15px; // Vertical padding removed, handled by row height
+        padding: 0 15px;
         border-bottom: 1px solid #f0f0f0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: table-cell; // ✅ Ensure cells respect column width
-        vertical-align: middle; // ✅ Vertical centering
+        overflow: visible; // ✅ Changed from hidden to visible
+        white-space: nowrap; // ✅ Prevents cell content wrapping
+        display: table-cell;
+        vertical-align: middle;
 
         &:last-child {
           overflow: visible;
@@ -122,7 +123,7 @@
     }
 
     tr:hover {
-      background-color: #fafafa; // ✅ Hover state for better UX
+      background-color: #fafafa;
     }
   }
 }
@@ -133,6 +134,7 @@
   gap: 10px;
   position: relative;
   z-index: 11;
+  white-space: nowrap; // ✅ Prevents wrapping
 }
 
 .filterIcon {
@@ -148,6 +150,7 @@
   font-weight: 500;
   font-size: 12px;
   text-transform: capitalize;
+  white-space: nowrap; // ✅ Prevents status text wrapping
 }
 
 .status.active {
